@@ -454,9 +454,10 @@ func (p *Parlia) snapshot(chain consensus.ChainHeaderReader, number uint64, hash
 			}
 		}
 
-		// If we're at the genesis, snapshot the initial state.
-		if number == 0 {
-			checkpoint := chain.GetHeaderByNumber(number)
+		checkpoint := chain.GetHeaderByHash(hash)
+		epochWithNoParent := number%p.config.Epoch == 0 && checkpoint != nil && chain.GetHeaderByHash(checkpoint.ParentHash) == nil
+		// If we're at the genesis OR we are at a checkpoint without a parent, snapshot the state.
+		if number == 0 || epochWithNoParent {
 			if checkpoint != nil {
 				// get checkpoint data
 				hash := checkpoint.Hash()
