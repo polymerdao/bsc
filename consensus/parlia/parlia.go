@@ -536,7 +536,7 @@ func (p *Parlia) VerifyUncles(chain consensus.ChainReader, block *types.Block) e
 
 // VerifySeal implements consensus.Engine, checking whether the signature contained
 // in the header satisfies the consensus protocol requirements.
-func (p *Parlia) VerifySeal(chain consensus.ChainReader, header *types.Header) error {
+func (p *Parlia) VerifySeal(chain consensus.ChainHeaderReader, header *types.Header) error {
 	return p.verifySeal(chain, header, nil)
 }
 
