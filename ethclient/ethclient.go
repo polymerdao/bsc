@@ -301,7 +301,6 @@ func (ec *Client) TransactionsInBlock(ctx context.Context, number *big.Int) ([]*
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(len(rpcTxs))
 	txs := make([]*types.Transaction, 0, len(rpcTxs))
 	for _, tx := range rpcTxs {
 		txs = append(txs, tx.tx)
